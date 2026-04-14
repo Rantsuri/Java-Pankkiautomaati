@@ -4,6 +4,6 @@ public class Main {
 //moro
 
 public static void main(String[] args) {
-    
+    ATMFrame frame = new ATMFrame();
 }
 }
