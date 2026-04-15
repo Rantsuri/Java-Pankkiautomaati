@@ -6,11 +6,11 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -24,6 +24,7 @@ public class KirjauduPaneeli extends JPanel implements ActionListener {
     private JLabel virheViesti;
     private Font fontti = new Font("Arial", Font.BOLD, 24);
     private JButton button1, button2, button3, button4, button5, button6, button7, button8, button9, button0, button11, button12;
+    private KortinLukija lukija;
 
     public KirjauduPaneeli(ATMFrame frame) {
         this.frame = frame;
@@ -33,7 +34,7 @@ public class KirjauduPaneeli extends JPanel implements ActionListener {
         kirjaudu.setBounds(310, 100, 300, 80);
         kirjaudu.setForeground(Color.white);
 
-        pinKentta = new JPasswordField();
+        pinKentta = new JPasswordField(4);
 
         setLayout(null);
 
@@ -46,7 +47,7 @@ public class KirjauduPaneeli extends JPanel implements ActionListener {
         add(kirjaudu);
         add(nimikko);
         setBackground(Color.blue);
-
+        lukija = new KortinLukija(this);
 
     }
 
@@ -58,12 +59,16 @@ public class KirjauduPaneeli extends JPanel implements ActionListener {
     }
 
      public boolean pinkoodiOikein() {
-        String pinkoodi = new String(pinKentta.getPassword());
-        File tiedosto =  new File(pinkoodi + ".txt");
-        if(tiedosto.exists()){
-            return true;
+        if(lukija.korttiOnOlemassa()){
+            return  true;
+        }else{
+            JOptionPane.showMessageDialog(this, "Väärä PIN!", "Virhe", JOptionPane.ERROR_MESSAGE);
+            return false;
         }
-        return false;
+    }
+
+    public char[] getPinKentta(){
+        return pinKentta.getPassword();
     }
     @Override
     public void actionPerformed(ActionEvent e) {
