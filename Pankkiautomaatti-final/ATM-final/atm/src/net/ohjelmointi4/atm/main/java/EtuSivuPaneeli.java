@@ -23,10 +23,8 @@ public class EtuSivuPaneeli extends  JPanel implements ActionListener {
  public EtuSivuPaneeli(ATMFrame frame){
 
         this.frame = frame;
-        
         setLayout(null);
 
-        
         tervetuloaTeksti = new JLabel("TERVETULOA");
         tervetuloaTeksti.setBounds(340, 100, 200, 80);
         tervetuloaTeksti.setFont(fontti);
