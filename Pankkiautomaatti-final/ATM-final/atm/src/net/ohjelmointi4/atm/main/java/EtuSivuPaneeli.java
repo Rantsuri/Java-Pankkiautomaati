@@ -48,6 +48,7 @@ public class EtuSivuPaneeli extends  JPanel implements ActionListener {
         tuki = new JButton("TUKI");
         tuki.setBounds(500, 550, 200, 80);
         tuki.setFont(fontti);
+        
 
         takaisin = new JButton("Takaisin");
         takaisin.setBounds(125, 675, 200, 80);

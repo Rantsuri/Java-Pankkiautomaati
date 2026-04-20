@@ -1,5 +1,53 @@
 package net.ohjelmointi4.atm.main.java;
 
-public class OtaMassitPaneeli {
-//tere
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
+public class OtaMassitPaneeli extends JPanel implements ActionListener{
+    private ATMFrame frame;
+    private JLabel otaRahat;
+    private JLabel rahaMaara;
+    private JButton lopeta;
+    private Font fontti = new Font("Arial", Font.BOLD, 24);
+
+
+    public OtaMassitPaneeli(ATMFrame frame){
+        this.frame = frame;
+        setLayout(null);
+
+        otaRahat = new JLabel("Ota Rahat alhaalta");
+        otaRahat.setFont(fontti);
+        otaRahat.setBounds(320, 100, 200, 80);
+        otaRahat.setForeground(Color.white);
+
+
+        rahaMaara = new JLabel(""); //nostettu rahamäärä
+
+        lopeta = new JButton("Lopeta Käyttö");
+        lopeta.setFont(fontti);
+        lopeta.setBounds(500, 675, 200, 80);
+        lopeta.addActionListener(this);
+
+
+        add(otaRahat);
+        add(lopeta);
+        add(rahaMaara);
+        
+        setBackground(Color.blue);
+        
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if(e.getSource() == lopeta){
+            frame.lopetaKaytto();
+
+        }
+    }
+
 }
