@@ -11,7 +11,7 @@ import javax.swing.JPanel;
 public class LopetaKayttoPaneeli extends JPanel implements ActionListener{
 //paevaa
 
-    private ATMFrame frame = new ATMFrame();
+    private ATMFrame frame;
     private JLabel LopetaKayttoTeksti;
     private JLabel oletkoVarmaTeksti;
     private JButton takaisinNappi, lopetaKayttoNappi;
@@ -42,13 +42,19 @@ public class LopetaKayttoPaneeli extends JPanel implements ActionListener{
         lopetaKayttoNappi.setBounds(500, 675, 200, 80);
         lopetaKayttoNappi.addActionListener(this);
         
+        add(lopetaKayttoNappi);
+        add(oletkoVarmaTeksti);
+        add(takaisinNappi);
+        add(lopetaKayttoNappi);
+
+        setBackground(Color.blue);
 
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == lopetaKayttoNappi){
-            frame.naytto("KIRJAUDU");
+            frame.naytto(ATMFrame.KIITOSHEI);
         }else if(e.getSource() == takaisinNappi){
             frame.naytto("ETU");
         }

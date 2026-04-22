@@ -99,7 +99,7 @@ public class EtuSivuPaneeli extends  JPanel implements ActionListener {
         } else if (e.getSource() == tapahtumat) {
             frame.naytto(ATMFrame.TAPAHTUMAT);
         } else if (e.getSource() == lopeta) {
-            frame.lopetaKaytto();
+            frame.naytto(ATMFrame.LOPETA);
             tukiDialogipaalla(false);
         } else if (e.getSource() == tuki) {
             tukiDialogipaalla(true);

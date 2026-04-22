@@ -1,6 +1,8 @@
 package net.ohjelmointi4.atm.main.java;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
 
 public class KortinLukija {
     private File kortti;
@@ -16,4 +18,19 @@ public class KortinLukija {
         return kortti.exists();
 
     }
+
+    public double Saldo() throws FileNotFoundException{
+        Scanner lukija = new Scanner(kortti);
+        double saldo = Double.parseDouble(lukija.nextLine());
+        lukija.close();
+        return saldo;
+    }
+
+    public double NostoMaara() throws FileNotFoundException{
+        Scanner lukija = new Scanner(kortti);
+        lukija.nextLine();
+        double nostoMaara = Double.parseDouble(lukija.nextLine());
+        return nostoMaara;
+    }
+    
 }

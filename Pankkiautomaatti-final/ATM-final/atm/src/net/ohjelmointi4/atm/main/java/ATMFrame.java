@@ -14,6 +14,9 @@ public class ATMFrame extends JFrame{
     final static String TAPAHTUMAT = "TAPAH";
     final static String SALDO = "SALDO";
     final static String KIRJAUDU = "KIRJAUDU";
+    final static String LOPETA = "LOPETA";
+    final static String OTAMASSIT = "OTAMASSIT";
+    final static String KIITOSHEI = "KIITOSHEI";
 
 
     public ATMFrame(){
@@ -35,6 +38,12 @@ public class ATMFrame extends JFrame{
         paneeli.add(new EtuSivuPaneeli(this), ETU);
         paneeli.add(new NostoPaneeli(this), NOSTO);
         paneeli.add(new KirjauduPaneeli(this), KIRJAUDU);
+        paneeli.add(new NostoPaneeli(this), NOSTO);
+         paneeli.add(new LopetaKayttoPaneeli(this), LOPETA);
+       paneeli.add(new OtaMassitPaneeli(this) ,OTAMASSIT);
+        paneeli.add(new TapahtumatPaneeli(this), TAPAHTUMAT);
+        paneeli.add(new KiitsJnePaneeli(this), KIITOSHEI);
+        paneeli.add(new SaldoPaneeli(this), SALDO);
         
         add(paneeli);
         layoutti.show(paneeli, KIRJAUDU);

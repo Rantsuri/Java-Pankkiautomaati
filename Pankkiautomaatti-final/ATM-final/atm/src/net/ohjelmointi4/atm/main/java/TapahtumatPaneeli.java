@@ -21,6 +21,7 @@ private JButton takaisin;
 private JLabel TapahtumatTeksti;
 private JWindow tapahtumatIkkuna;
 private JWindow tukiIkkuna;
+private boolean tukiOnkoPäällä = false;
 private JButton lopetaKaytto;
 private JButton valitseOk;
 private JButton tuki;
@@ -58,9 +59,20 @@ public TapahtumatPaneeli(ATMFrame frame){
     valitseOk.setBounds(125, 550, 200, 80);
     valitseOk.setVisible(false);
 
-
-    tapahtumatIkkunaMetodi();
+    tuki = new JButton("Tuki");
+    tuki.setFont(fontti);
+    tuki.addActionListener(this);
+    tuki.setBounds(500, 550, 200, 80);
+    
+    
     setBackground(Color.BLUE);
+
+    add(takaisin);
+    add(lopetaKaytto);
+    add(valitseOk);
+    add(TapahtumatTeksti);
+    add(tuki);
+    
 
 }
 
@@ -69,18 +81,23 @@ public void actionPerformed(ActionEvent e) {
     if(e.getSource() == takaisin ){
          //jos tukidialogi on päällä niin takaisin
         //  painamalla pääsee paneeleja takaisin
+        if(tukiOnkoPäällä == true){
+            tukiDialogipaalla(false);
+        }else{
+        frame.naytto("ETU");
+
+        }
         
-    }else{
-         if(e.getSource() == tuki){
+    }else if(e.getSource() == tuki){
         tukiDialogipaalla(true);
         
-    }
     }
    
 }
 
 
   public void tukiDialogipaalla(boolean päällä) { 
+        tukiOnkoPäällä = päällä;
         if (päällä == true) {
             tukiIkkuna = new JWindow();
             JPanel tämäPaneeli = new JPanel();
@@ -106,8 +123,10 @@ public void actionPerformed(ActionEvent e) {
     }
 
 
-    public void tapahtumatIkkunaMetodi(){
+    public void tapahtumatIkkunaMetodi(boolean päällä){
+        if(päällä == true){
 
+      
         tapahtumatIkkuna = new JWindow();
         JPanel tapahtumatPaneeli = new JPanel();
         tapahtumatPaneeli.setBackground(Color.cyan);
@@ -130,7 +149,11 @@ public void actionPerformed(ActionEvent e) {
         tapahtumatIkkuna.setSize(600, 400);
         tapahtumatIkkuna.setLocation(675, 90);
         tapahtumatIkkuna.add(tapahtumatPaneeli);
+  }else if(päällä == false){
+        tapahtumatIkkuna.setVisible(false);
+        tukiIkkuna.dispose();
 
+  }
 
     }
 }
