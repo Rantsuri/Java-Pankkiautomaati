@@ -16,18 +16,20 @@ public class LopetaKayttoPaneeli extends JPanel implements ActionListener{
     private JLabel oletkoVarmaTeksti;
     private JButton takaisinNappi, lopetaKayttoNappi;
     private Font fontti = new Font("Arial", Font.BOLD, 24);
+    private KiitsJnePaneeli ajastin;
 
-    public LopetaKayttoPaneeli(ATMFrame frame) {
+    public LopetaKayttoPaneeli(ATMFrame frame, KiitsJnePaneeli ajastin) {
         this.frame = frame;
+        this.ajastin = ajastin;
         setLayout(null);
 
         LopetaKayttoTeksti = new JLabel("LOPETA KÄYTTÖ");
-        LopetaKayttoTeksti.setBounds(340, 100, 200, 80);
+        LopetaKayttoTeksti.setBounds(300, 100, 500, 80);
         LopetaKayttoTeksti.setFont(fontti);
         LopetaKayttoTeksti.setForeground(Color.WHITE);
 
         oletkoVarmaTeksti = new JLabel("haluatko varmasti lopettaa käytön?");
-        oletkoVarmaTeksti.setBounds(320, 300, 200, 80);
+        oletkoVarmaTeksti.setBounds(220, 300, 500, 80);
         oletkoVarmaTeksti.setFont(fontti);
         oletkoVarmaTeksti.setForeground(Color.white);
         
@@ -45,6 +47,7 @@ public class LopetaKayttoPaneeli extends JPanel implements ActionListener{
         add(lopetaKayttoNappi);
         add(oletkoVarmaTeksti);
         add(takaisinNappi);
+        add(LopetaKayttoTeksti);
         add(lopetaKayttoNappi);
 
         setBackground(Color.blue);
@@ -55,6 +58,8 @@ public class LopetaKayttoPaneeli extends JPanel implements ActionListener{
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == lopetaKayttoNappi){
             frame.naytto(ATMFrame.KIITOSHEI);
+            ajastin.NayttoAjastin();
+
         }else if(e.getSource() == takaisinNappi){
             frame.naytto("ETU");
         }

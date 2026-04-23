@@ -10,6 +10,7 @@ public class ATMFrame extends JFrame{
     private CardLayout layoutti;
     private JPanel paneeli;
     private KortinLukija lukija;
+    private KiitsJnePaneeli ajastin;
     final static String NOSTO = "NOSTO";
     final static String ETU = "ETU";
     final static String TAPAHTUMAT = "TAPAH";
@@ -27,20 +28,14 @@ public class ATMFrame extends JFrame{
         setResizable(false);
         setUndecorated(true);
         lukija = new KortinLukija( );
+        ajastin = new KiitsJnePaneeli(this);
         layoutti = new CardLayout();
         paneeli = new JPanel(layoutti);
-        
-        //TODO: navigointi paneeline välillä....
-        /*
-        
-        
-        */
 
         paneeli.add(new EtuSivuPaneeli(this), ETU);
         paneeli.add(new NostoPaneeli(this), NOSTO);
         paneeli.add(new KirjauduPaneeli(this, lukija), KIRJAUDU);
-       
-        paneeli.add(new LopetaKayttoPaneeli(this), LOPETA);
+        paneeli.add(new LopetaKayttoPaneeli(this, ajastin), LOPETA);
         paneeli.add(new OtaMassitPaneeli(this) ,OTAMASSIT);
         paneeli.add(new TapahtumatPaneeli(this), TAPAHTUMAT);
         paneeli.add(new KiitsJnePaneeli(this), KIITOSHEI);

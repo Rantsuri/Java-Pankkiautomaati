@@ -11,98 +11,141 @@ import javax.swing.JWindow;
 
 public class SaldoPaneeli extends JPanel implements ActionListener {
 //Saldon tarkastelu paneeli väli viiva yhdys sana tämä kin
+
     private ATMFrame frame;
     private JButton tuki, lopeta, takaisin;
     private JWindow tukiIkkuna;
     private Font fontti = new Font("Arial", Font.BOLD, 24);
-    private boolean  tukiOnkoPäällä = false;
+    private boolean tukiOnkoPäällä = false;
     private double tilinSaldo;
     private KortinLukija lukija;
-    private JLabel saldo;
-    private JLabel nostoMaara;
+    private JLabel saldo, saldoTeksti;
+    private JLabel nostoMaara, nostoMaaraTeksti, PaneeliTeksti;
 
-public SaldoPaneeli(ATMFrame frame, KortinLukija lukija) {
-    this.lukija = lukija;
-    this.frame = frame;
-    setLayout(null);
+    public SaldoPaneeli(ATMFrame frame, KortinLukija lukija) {
+        this.lukija = lukija;
+        this.frame = frame;
+        setLayout(null);
 
-    tuki = new JButton("Tuki");
-    tuki.setBounds(500, 550, 200, 80);
-    tuki.addActionListener(this);
-    tuki.setFont(fontti);
+        tuki = new JButton("Tuki");
+        tuki.setBounds(500, 550, 200, 80);
+        tuki.addActionListener(this);
+        tuki.setFont(fontti);
 
-    takaisin = new JButton("Takaisin");
-    takaisin.setFont(fontti);
-    takaisin.addActionListener(this);
-    takaisin.setBounds(125, 675, 200 ,80);
+        takaisin = new JButton("Takaisin");
+        takaisin.setFont(fontti);
+        takaisin.addActionListener(this);
+        takaisin.setBounds(125, 675, 200, 80);
 
-    lopeta = new JButton("Lopeta Käyttö");
-    lopeta.setFont(fontti);
-    lopeta.addActionListener(this);
-    lopeta.setBounds(500, 675, 200, 80);
-    
-    saldo = new JLabel("");
-    saldo.setFont(fontti);
-    saldo.setBounds(100, 100, 200, 80);
-    add(tuki);
-    add(lopeta);
-    add(takaisin);
-    add(saldo);
-    setBackground(Color.blue);
-    paivitaSaldo();
+        lopeta = new JButton("Lopeta Käyttö");
+        lopeta.setFont(fontti);
+        lopeta.addActionListener(this);
+        lopeta.setBounds(500, 675, 200, 80);
 
-}
+        saldo = new JLabel("");
+        saldo.setFont(fontti);
+        saldo.setBounds(500, 300, 200, 80);
+        saldo.setFont(fontti);
+        saldo.setForeground(Color.WHITE);
 
-@Override
-public void actionPerformed(ActionEvent e) {
-    if(e.getSource() == takaisin ){
-         //jos tukidialogi on päällä niin takaisin
-        //  painamalla pääsee paneeleja takaisin
-        if(tukiOnkoPäällä == true){
-            tukiDialogipaalla(false);
-        }else{
-        frame.naytto(ATMFrame.ETU);
+        saldoTeksti = new JLabel("Tilin Saldo...");
+        saldoTeksti.setFont(fontti);
+        saldoTeksti.setBounds(125, 300, 200, 80);
+        saldoTeksti.setForeground(Color.white);
 
-        }
-        
-    }else if(e.getSource() == tuki){
-        tukiDialogipaalla(true);
-        
-    }else if(e.getSource() == lopeta){
-        frame.naytto(ATMFrame.LOPETA);
+        nostoMaara = new JLabel("");
+        nostoMaara.setFont(fontti);
+        nostoMaara.setBounds(500, 425, 200, 80);
+        nostoMaara.setForeground(Color.white);
+
+        nostoMaaraTeksti = new JLabel("Nostettavissa...");
+        nostoMaaraTeksti.setFont(fontti);
+        nostoMaaraTeksti.setBounds(125, 425, 200, 80);
+        nostoMaaraTeksti.setForeground(Color.white);
+
+        PaneeliTeksti = new JLabel("TILIN SALDO");
+        PaneeliTeksti.setFont(fontti);
+        PaneeliTeksti.setForeground(Color.white);
+        PaneeliTeksti.setBounds(300, 100, 200, 80);
+
+        add(tuki);
+        add(nostoMaara);
+        add(nostoMaaraTeksti);
+        add(saldoTeksti);
+        add(lopeta);
+        add(takaisin);
+        add(PaneeliTeksti);
+        add(saldo);
+        setBackground(Color.blue);
+        paivitaSaldo();
+        NostoMaara();
+
     }
-}
-public void tukiDialogipaalla(boolean päällä) { 
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == takaisin) {
+            //jos tukidialogi on päällä niin takaisin
+            //  painamalla pääsee paneeleja takaisin
+            if (tukiOnkoPäällä == true) {
+                tukiDialogipaalla(false);
+            } else {
+                frame.naytto(ATMFrame.ETU);
+
+            }
+
+        } else if (e.getSource() == tuki) {
+            tukiDialogipaalla(true);
+
+        } else if (e.getSource() == lopeta) {
+            frame.naytto(ATMFrame.LOPETA);
+        }
+    }
+
+    public void tukiDialogipaalla(boolean päällä) {
         tukiOnkoPäällä = päällä;
         if (päällä == true) {
             tukiIkkuna = new JWindow();
             JPanel tämäPaneeli = new JPanel();
             tämäPaneeli.setBackground(Color.white);
             JLabel label1 = new JLabel("TUKI");
-            
+
             label1.setBounds(300, 300, 200, 80);
             label1.setFont(fontti);
-            
+
             tämäPaneeli.add(label1);
-            
+
             tukiIkkuna.setVisible(true);
             tukiIkkuna.setSize(600, 600);
             tukiIkkuna.setLocation(675, 90);
             tukiIkkuna.add(tämäPaneeli);
-        } else if(päällä == false){
+        } else if (päällä == false) {
             tukiIkkuna.setVisible(false);
             tukiIkkuna.dispose();
         }
     }
-    
-    public void paivitaSaldo(){
+
+    public void paivitaSaldo() {
         try {
             String StringSaldo = Double.toString(lukija.Saldo());
             saldo.setText(StringSaldo);
+
         } catch (Exception e) {
-            saldo.setText("Virhe...");
+            saldo.setText("Virhe ladattaessa...");
+
         }
     }
 
+    public void NostoMaara() {
+        try {
+            Double nostomaara = lukija.Saldo();
+            nostomaara *= 0.4;
+            int pyöristetty = (int) Math.floor(nostomaara / 10) * 10;
+            nostoMaara.setText(String.valueOf(pyöristetty));
 
+        } catch (Exception e) {
+            nostoMaara.setText("Virhe ladattaessa...");
+        }
+
+    }
 }
