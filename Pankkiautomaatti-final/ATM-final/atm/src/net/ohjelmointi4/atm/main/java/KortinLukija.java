@@ -6,24 +6,26 @@ import java.util.Scanner;
 
 public class KortinLukija {
     private File kortti;
-    private KirjauduPaneeli kirjaudu;
-    public KortinLukija( KirjauduPaneeli kirjaudu){
-        this.kirjaudu = kirjaudu;
+    public KortinLukija( ){
     }
 
-    public boolean korttiOnOlemassa(){
-        char[] pin = kirjaudu.getPinKentta();
-        String pinOikea = new String(pin);
-        File kortti = new File(pinOikea + ".txt");
+    public boolean korttiOnOlemassa(String pin){
+        
+        File kortti = new File(pin + ".txt");
         return kortti.exists();
 
     }
 
     public double Saldo() throws FileNotFoundException{
+        try {
         Scanner lukija = new Scanner(kortti);
         double saldo = Double.parseDouble(lukija.nextLine());
         lukija.close();
         return saldo;
+        } catch (Exception e) {
+            return 1234;
+        }
+       
     }
 
     public double NostoMaara() throws FileNotFoundException{

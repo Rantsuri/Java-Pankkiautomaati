@@ -16,9 +16,13 @@ public class SaldoPaneeli extends JPanel implements ActionListener {
     private JWindow tukiIkkuna;
     private Font fontti = new Font("Arial", Font.BOLD, 24);
     private boolean  tukiOnkoPäällä = false;
+    private double tilinSaldo;
+    private KortinLukija lukija;
+    private JLabel saldo;
+    private JLabel nostoMaara;
 
-
-public SaldoPaneeli(ATMFrame frame){
+public SaldoPaneeli(ATMFrame frame, KortinLukija lukija) {
+    this.lukija = lukija;
     this.frame = frame;
     setLayout(null);
 
@@ -36,13 +40,16 @@ public SaldoPaneeli(ATMFrame frame){
     lopeta.setFont(fontti);
     lopeta.addActionListener(this);
     lopeta.setBounds(500, 675, 200, 80);
-
-
+    
+    saldo = new JLabel("");
+    saldo.setFont(fontti);
+    saldo.setBounds(100, 100, 200, 80);
     add(tuki);
     add(lopeta);
     add(takaisin);
-
+    add(saldo);
     setBackground(Color.blue);
+    paivitaSaldo();
 
 }
 
@@ -76,10 +83,7 @@ public void tukiDialogipaalla(boolean päällä) {
             label1.setBounds(300, 300, 200, 80);
             label1.setFont(fontti);
             
-
-      
             tämäPaneeli.add(label1);
-                    
             
             tukiIkkuna.setVisible(true);
             tukiIkkuna.setSize(600, 600);
@@ -90,5 +94,15 @@ public void tukiDialogipaalla(boolean päällä) {
             tukiIkkuna.dispose();
         }
     }
+    
+    public void paivitaSaldo(){
+        try {
+            String StringSaldo = Double.toString(lukija.Saldo());
+            saldo.setText(StringSaldo);
+        } catch (Exception e) {
+            saldo.setText("Virhe...");
+        }
+    }
+
 
 }

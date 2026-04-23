@@ -18,6 +18,7 @@ public class EtuSivuPaneeli extends  JPanel implements ActionListener {
  private JLabel tervetuloaTeksti; 
  private JWindow tukiIkkuna;
  private Font fontti = new Font("Arial", Font.BOLD, 24);
+ private NostoPaneeli nostoPaneeli;
 
 
  public EtuSivuPaneeli(ATMFrame frame){
@@ -96,6 +97,7 @@ public class EtuSivuPaneeli extends  JPanel implements ActionListener {
             frame.naytto(ATMFrame.NOSTO);
         } else if (e.getSource() == saldo) {
             frame.naytto(ATMFrame.SALDO);
+            
         } else if (e.getSource() == tapahtumat) {
             frame.naytto(ATMFrame.TAPAHTUMAT);
         } else if (e.getSource() == lopeta) {

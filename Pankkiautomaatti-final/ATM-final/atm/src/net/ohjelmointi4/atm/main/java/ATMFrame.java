@@ -9,6 +9,7 @@ public class ATMFrame extends JFrame{
  //toimiiko tää
     private CardLayout layoutti;
     private JPanel paneeli;
+    private KortinLukija lukija;
     final static String NOSTO = "NOSTO";
     final static String ETU = "ETU";
     final static String TAPAHTUMAT = "TAPAH";
@@ -25,10 +26,10 @@ public class ATMFrame extends JFrame{
         setLocationRelativeTo(null);
         setResizable(false);
         setUndecorated(true);
-
+        lukija = new KortinLukija( );
         layoutti = new CardLayout();
         paneeli = new JPanel(layoutti);
-
+        
         //TODO: navigointi paneeline välillä....
         /*
         
@@ -37,13 +38,13 @@ public class ATMFrame extends JFrame{
 
         paneeli.add(new EtuSivuPaneeli(this), ETU);
         paneeli.add(new NostoPaneeli(this), NOSTO);
-        paneeli.add(new KirjauduPaneeli(this), KIRJAUDU);
-        paneeli.add(new NostoPaneeli(this), NOSTO);
-         paneeli.add(new LopetaKayttoPaneeli(this), LOPETA);
-       paneeli.add(new OtaMassitPaneeli(this) ,OTAMASSIT);
+        paneeli.add(new KirjauduPaneeli(this, lukija), KIRJAUDU);
+       
+        paneeli.add(new LopetaKayttoPaneeli(this), LOPETA);
+        paneeli.add(new OtaMassitPaneeli(this) ,OTAMASSIT);
         paneeli.add(new TapahtumatPaneeli(this), TAPAHTUMAT);
         paneeli.add(new KiitsJnePaneeli(this), KIITOSHEI);
-        paneeli.add(new SaldoPaneeli(this), SALDO);
+        paneeli.add(new SaldoPaneeli(this, lukija), SALDO);
         
         add(paneeli);
         layoutti.show(paneeli, KIRJAUDU);

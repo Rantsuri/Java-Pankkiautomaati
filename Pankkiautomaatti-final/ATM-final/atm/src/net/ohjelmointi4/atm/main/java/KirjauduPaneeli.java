@@ -26,8 +26,10 @@ public class KirjauduPaneeli extends JPanel implements ActionListener {
     private JButton button1, button2, button3, button4, button5, button6, button7, button8, button9, button0, button11, button12;
     private KortinLukija lukija;
 
-    public KirjauduPaneeli(ATMFrame frame) {
+    public KirjauduPaneeli(ATMFrame frame, KortinLukija lukija) {
         this.frame = frame;
+        this.lukija = lukija;
+
          JLabel nimikko = new JLabel("Pankkiautomaatti :DDDDDDDD 8==3");
         JLabel kirjaudu = new JLabel("Syötä Pin-koodisi");
         kirjaudu.setFont(fontti);
@@ -47,7 +49,6 @@ public class KirjauduPaneeli extends JPanel implements ActionListener {
         add(kirjaudu);
         add(nimikko);
         setBackground(Color.blue);
-        lukija = new KortinLukija(this);
 
     }
 
@@ -59,7 +60,8 @@ public class KirjauduPaneeli extends JPanel implements ActionListener {
     }
 
      public boolean pinkoodiOikein() {
-        if(lukija.korttiOnOlemassa()){
+        String pin = new String(pinKentta.getPassword());
+        if(lukija.korttiOnOlemassa(pin)){
             return  true;
         }else{
             JOptionPane.showMessageDialog(this, "Väärä PIN!", "Virhe", JOptionPane.ERROR_MESSAGE);
