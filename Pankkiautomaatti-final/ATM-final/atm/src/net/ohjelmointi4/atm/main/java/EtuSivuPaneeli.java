@@ -19,11 +19,13 @@ public class EtuSivuPaneeli extends  JPanel implements ActionListener {
  private JWindow tukiIkkuna;
  private Font fontti = new Font("Arial", Font.BOLD, 24);
  private NostoPaneeli nostoPaneeli;
+ private TapahtumatPaneeli tapahtumaPaneeli;
 
 
- public EtuSivuPaneeli(ATMFrame frame){
+ public EtuSivuPaneeli(ATMFrame frame, TapahtumatPaneeli tapahtumatPaneeli){
 
         this.frame = frame;
+        this.tapahtumaPaneeli = tapahtumatPaneeli;
         setLayout(null);
 
         tervetuloaTeksti = new JLabel("TERVETULOA");
@@ -99,7 +101,7 @@ public class EtuSivuPaneeli extends  JPanel implements ActionListener {
             frame.naytto(ATMFrame.SALDO);
             
         } else if (e.getSource() == tapahtumat) {
-            frame.naytto(ATMFrame.TAPAHTUMAT);
+            frame.naytto(ATMFrame.TAPAHTUMAT);;
         } else if (e.getSource() == lopeta) {
             frame.naytto(ATMFrame.LOPETA);
             tukiDialogipaalla(false);

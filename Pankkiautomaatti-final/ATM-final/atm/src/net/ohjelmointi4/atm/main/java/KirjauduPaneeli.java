@@ -91,6 +91,7 @@ public class KirjauduPaneeli extends JPanel implements ActionListener {
         }
     }
      public void nappainKentta() {
+
         JDialog nappainIkkuna = new JDialog();
         JPanel nappainkentta = new JPanel(new GridLayout(4, 3, 6, 6));
         nappainkentta.setBounds(260, 150, 300, 200);
@@ -155,6 +156,7 @@ public class KirjauduPaneeli extends JPanel implements ActionListener {
         nappainIkkuna.setVisible(true);
         nappainIkkuna.setSize(310, 310);
         nappainIkkuna.setLocation(ALLBITS, ABORT);
+        nappainIkkuna.setAlwaysOnTop(true);
 
     }
 

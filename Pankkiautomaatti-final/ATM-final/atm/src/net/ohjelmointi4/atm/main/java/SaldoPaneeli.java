@@ -77,8 +77,7 @@ public class SaldoPaneeli extends JPanel implements ActionListener {
         add(PaneeliTeksti);
         add(saldo);
         setBackground(Color.blue);
-        paivitaSaldo();
-        NostoMaara();
+      
 
     }
 
@@ -125,19 +124,10 @@ public class SaldoPaneeli extends JPanel implements ActionListener {
         }
     }
 
-    public void paivitaSaldo() {
-        try {
-            String StringSaldo = Double.toString(lukija.Saldo());
-            saldo.setText(StringSaldo);
+    
 
-        } catch (Exception e) {
-            saldo.setText("Virhe ladattaessa...");
-
-        }
-    }
-
-    public void NostoMaara() {
-        try {
+    public void SaldoPaivitys(){
+         try {
             Double nostomaara = lukija.Saldo();
             nostomaara *= 0.4;
             int pyöristetty = (int) Math.floor(nostomaara / 10) * 10;
@@ -147,5 +137,13 @@ public class SaldoPaneeli extends JPanel implements ActionListener {
             nostoMaara.setText("Virhe ladattaessa...");
         }
 
+         try {
+            String StringSaldo = Double.toString(lukija.Saldo());
+            saldo.setText(StringSaldo);
+
+        } catch (Exception e) {
+            saldo.setText("Virhe ladattaessa...");
+
+        }
     }
 }

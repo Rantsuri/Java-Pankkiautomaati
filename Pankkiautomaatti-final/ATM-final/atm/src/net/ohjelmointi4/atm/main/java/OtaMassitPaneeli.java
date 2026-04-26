@@ -4,10 +4,11 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Timer;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.Timer;
+
 
 public class OtaMassitPaneeli extends JPanel implements ActionListener{
     private ATMFrame frame;
@@ -15,10 +16,12 @@ public class OtaMassitPaneeli extends JPanel implements ActionListener{
     private JLabel rahaMaara;
     private JButton lopeta;
     private Font fontti = new Font("Arial", Font.BOLD, 24);
-    private Timer ajastin;
+    private Timer nayttoAjastin;
+    private KiitsJnePaneeli ajastin;
 
-    public OtaMassitPaneeli(ATMFrame frame){
+    public OtaMassitPaneeli(ATMFrame frame, KiitsJnePaneeli ajastin){
         this.frame = frame;
+        this.ajastin = ajastin;
         setLayout(null);
         
         otaRahat = new JLabel("Ota Rahat alhaalta");
@@ -41,15 +44,26 @@ public class OtaMassitPaneeli extends JPanel implements ActionListener{
         add(rahaMaara);
         
         setBackground(Color.blue);
+          nayttoAjastin = new Timer(5000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                nayttoAjastin.stop();
+
+                frame.naytto(ATMFrame.KIITOSHEI);
+                ajastin.NayttoAjastin();
+                
+            }
+        }) ;
+
         
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(e.getSource() == lopeta){
-            frame.lopetaKaytto();
-
-        }
+    
     }
+  public void NayttoAjastin() {
+        nayttoAjastin.restart();
 
+    }
 }

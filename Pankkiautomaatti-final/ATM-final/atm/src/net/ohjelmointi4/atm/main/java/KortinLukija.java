@@ -11,7 +11,7 @@ public class KortinLukija {
 
     public boolean korttiOnOlemassa(String pin){
         
-        File kortti = new File(pin + ".txt");
+        kortti = new File(pin + ".txt");
         return kortti.exists();
 
     }
@@ -23,7 +23,8 @@ public class KortinLukija {
         lukija.close();
         return saldo;
         } catch (Exception e) {
-            return 1234;
+            e.printStackTrace();
+    throw new RuntimeException("Saldo failed: " + e.getMessage(), e);
         }
        
     }

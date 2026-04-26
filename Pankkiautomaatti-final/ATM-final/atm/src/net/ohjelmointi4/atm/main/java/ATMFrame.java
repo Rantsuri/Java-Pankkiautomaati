@@ -4,13 +4,15 @@ import java.awt.CardLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+public class ATMFrame extends JFrame {
+    //toimiiko tää
 
-public class ATMFrame extends JFrame{
- //toimiiko tää
     private CardLayout layoutti;
     private JPanel paneeli;
     private KortinLukija lukija;
     private KiitsJnePaneeli ajastin;
+    private OtaMassitPaneeli ajastin2;
+    private TapahtumatPaneeli tapahtumat;
     final static String NOSTO = "NOSTO";
     final static String ETU = "ETU";
     final static String TAPAHTUMAT = "TAPAH";
@@ -20,37 +22,39 @@ public class ATMFrame extends JFrame{
     final static String OTAMASSIT = "OTAMASSIT";
     final static String KIITOSHEI = "KIITOSHEI";
 
-
-    public ATMFrame(){
+    public ATMFrame() {
         setSize(800, 1000);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setResizable(false);
         setUndecorated(true);
-        lukija = new KortinLukija( );
+        lukija = new KortinLukija();
         ajastin = new KiitsJnePaneeli(this);
         layoutti = new CardLayout();
         paneeli = new JPanel(layoutti);
+        ajastin2 = new OtaMassitPaneeli(this, ajastin);
+        tapahtumat = new TapahtumatPaneeli(this);
 
-        paneeli.add(new EtuSivuPaneeli(this), ETU);
-        paneeli.add(new NostoPaneeli(this), NOSTO);
+        paneeli.add(new EtuSivuPaneeli(this, tapahtumat), ETU);
+        paneeli.add(new NostoPaneeli(this, ajastin2), NOSTO);
         paneeli.add(new KirjauduPaneeli(this, lukija), KIRJAUDU);
         paneeli.add(new LopetaKayttoPaneeli(this, ajastin), LOPETA);
-        paneeli.add(new OtaMassitPaneeli(this) ,OTAMASSIT);
-        paneeli.add(new TapahtumatPaneeli(this), TAPAHTUMAT);
+        paneeli.add(ajastin2, OTAMASSIT);
+        paneeli.add(tapahtumat, TAPAHTUMAT);
         paneeli.add(new KiitsJnePaneeli(this), KIITOSHEI);
         paneeli.add(new SaldoPaneeli(this, lukija), SALDO);
-        
+
         add(paneeli);
         layoutti.show(paneeli, KIRJAUDU);
         setVisible(true);
     }
 
-    public void naytto(String naytonNimi){
+    public void naytto(String naytonNimi) {
         layoutti.show(paneeli, naytonNimi);
+
     }
 
-    public void lopetaKaytto(){
+    public void lopetaKaytto() {
         layoutti.show(paneeli, KIRJAUDU);
     }
 }

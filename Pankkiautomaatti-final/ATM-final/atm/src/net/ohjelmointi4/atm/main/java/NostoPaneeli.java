@@ -19,9 +19,11 @@ public class NostoPaneeli extends JPanel implements ActionListener {
             tuki, lopetaKaytto;
     private boolean tukiOnkoPäällä = false;
     private JWindow tukiIkkuna;
+    private OtaMassitPaneeli ajastin;
 
-    public NostoPaneeli(ATMFrame frame) {
+    public NostoPaneeli(ATMFrame frame, OtaMassitPaneeli ajastin) {
         this.frame = frame;
+        this.ajastin = ajastin;
         setLayout(null);
 
         JLabel label = new JLabel("NOSTO");
@@ -98,16 +100,21 @@ public class NostoPaneeli extends JPanel implements ActionListener {
             tukiDialogipaalla(true);
         } else if (e.getSource() == kaksyt) {
             nostoTapahtuma(20);
+            frame.naytto(ATMFrame.OTAMASSIT);
+            ajastin.NayttoAjastin();
         } else if (e.getSource() == nelkyt) {
             frame.naytto(ATMFrame.OTAMASSIT);
             nostoTapahtuma(40);
+            ajastin.NayttoAjastin();
 
         } else if (e.getSource() == viiskyt) {
             nostoTapahtuma(50);
             frame.naytto(ATMFrame.OTAMASSIT);
+            ajastin.NayttoAjastin();
         } else if (e.getSource() == satku) {
             nostoTapahtuma(100);
             frame.naytto(ATMFrame.OTAMASSIT);
+            ajastin.NayttoAjastin();
         } else if (e.getSource() == MuuSumma) {
 
         } else if (e.getSource() == lopetaKaytto) {
