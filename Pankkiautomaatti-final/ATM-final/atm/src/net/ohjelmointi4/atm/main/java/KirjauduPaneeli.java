@@ -6,6 +6,8 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -25,12 +27,14 @@ public class KirjauduPaneeli extends JPanel implements ActionListener {
     private Font fontti = new Font("Arial", Font.BOLD, 24);
     private JButton button1, button2, button3, button4, button5, button6, button7, button8, button9, button0, button11, button12;
     private KortinLukija lukija;
+    private List<String> estoLista = new ArrayList<>();
+    private int yritysKerrat;
 
     public KirjauduPaneeli(ATMFrame frame, KortinLukija lukija) {
         this.frame = frame;
         this.lukija = lukija;
 
-         JLabel nimikko = new JLabel("Pankkiautomaatti :DDDDDDDD 8==3");
+        JLabel nimikko = new JLabel("Pankkiautomaatti :DDDDDDDD 8==3");
         JLabel kirjaudu = new JLabel("Syötä Pin-koodisi");
         kirjaudu.setFont(fontti);
         kirjaudu.setBounds(310, 100, 300, 80);
@@ -59,26 +63,52 @@ public class KirjauduPaneeli extends JPanel implements ActionListener {
         }
     }
 
-     public boolean pinkoodiOikein() {
+    public boolean pinkoodiOikein() {
         String pin = new String(pinKentta.getPassword());
-        if(lukija.korttiOnOlemassa(pin)){
-            return  true;
-        }else{
-            JOptionPane.showMessageDialog(this, "Väärä PIN!", "Virhe", JOptionPane.ERROR_MESSAGE);
+        if (lukija.korttiOnOlemassa(pin) && !onkoEstoListalla(pin)) {
+            return true;
+        } else if(onkoEstoListalla(pin)){
+            JOptionPane.showMessageDialog(this,"Kortti lukittu", "Virhe", JOptionPane.ERROR_MESSAGE);
             return false;
+        }else {
+            JOptionPane.showMessageDialog(this, "Väärä PIN!", "Virhe", JOptionPane.ERROR_MESSAGE);
+            yritysKerrat++;
+            if(yritysKerrat == 3){
+                estoLista(pin);
+            }
+            return false;
+
         }
     }
 
-    public char[] getPinKentta(){
+    public void estoLista(String pin) {
+        estoLista.add(pin);
+
+        
+    }
+
+    public boolean onkoEstoListalla(String pin){
+        if( estoLista.contains(pin)){
+            return true;
+        }else{
+            return false;
+        }
+       
+        
+    }
+
+    public char[] getPinKentta() {
         return pinKentta.getPassword();
     }
+
     @Override
     public void actionPerformed(ActionEvent e) {
-          if (e.getSource() == button11) {
+        if (e.getSource() == button11) {
             if (pinkoodiOikein()) {
+                yritysKerrat = 0;
                 frame.naytto("ETU");
                 pinKentta.setText(null);
-                
+
             }
         } else if (e.getSource() == button12) { //pyyhkii
             String numero = new String(pinKentta.getPassword());
@@ -90,7 +120,8 @@ public class KirjauduPaneeli extends JPanel implements ActionListener {
             pinKentta.setText(numero + e.getActionCommand());
         }
     }
-     public void nappainKentta() {
+
+    public void nappainKentta() {
 
         JDialog nappainIkkuna = new JDialog();
         JPanel nappainkentta = new JPanel(new GridLayout(4, 3, 6, 6));

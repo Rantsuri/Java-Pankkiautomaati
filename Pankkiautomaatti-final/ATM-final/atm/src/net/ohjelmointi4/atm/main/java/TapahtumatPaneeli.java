@@ -108,9 +108,9 @@ public class TapahtumatPaneeli extends JPanel implements ActionListener {
             tukiDialogipaalla(true);
 
         }else if(e.getSource() == valitseOk && radioKuitille.isSelected() ){
-
+            frame.naytto(ATMFrame.KUITTI);
         }else if(e.getSource() == valitseOk && radioNaytolle.isSelected()){
-
+            frame.naytto(ATMFrame.KIITOSHEI);
         }
 
     }
