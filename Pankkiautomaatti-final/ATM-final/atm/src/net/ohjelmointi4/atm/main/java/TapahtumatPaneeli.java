@@ -25,9 +25,13 @@ public class TapahtumatPaneeli extends JPanel implements ActionListener {
     private JButton lopetaKaytto;
     private JButton valitseOk;
     private JButton tuki;
+    private OtaKuitti ajastin;
+    private KiitsJnePaneeli ajastin2;
 
-    public TapahtumatPaneeli(ATMFrame frame) {
+    public TapahtumatPaneeli(ATMFrame frame, OtaKuitti ajastin, KiitsJnePaneeli ajastin2) {
         this.frame = frame;
+        this.ajastin = ajastin;
+        this.ajastin2 = ajastin2;
         setLayout(null);
 
         setBackground(Color.blue);
@@ -109,8 +113,11 @@ public class TapahtumatPaneeli extends JPanel implements ActionListener {
 
         }else if(e.getSource() == valitseOk && radioKuitille.isSelected() ){
             frame.naytto(ATMFrame.KUITTI);
+            ajastin.NayttoAjastin();
+
         }else if(e.getSource() == valitseOk && radioNaytolle.isSelected()){
             frame.naytto(ATMFrame.KIITOSHEI);
+            ajastin2.NayttoAjastin();
         }
 
     }

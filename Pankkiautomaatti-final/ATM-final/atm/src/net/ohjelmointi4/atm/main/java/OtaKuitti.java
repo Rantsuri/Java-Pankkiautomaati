@@ -9,7 +9,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-public class OtaKuitti extends JPanel implements ActionListener{
+public class OtaKuitti extends JPanel implements ActionListener {
+
     private ATMFrame frame;
     private JLabel otaKuitti, Tapahtumat;
     private KiitsJnePaneeli ajastin;
@@ -17,8 +18,7 @@ public class OtaKuitti extends JPanel implements ActionListener{
 
     private Font fontti = new Font("Arial", Font.BOLD, 24);
 
-
-    public OtaKuitti(ATMFrame frame, KiitsJnePaneeli ajastin ) {
+    public OtaKuitti(ATMFrame frame, KiitsJnePaneeli ajastin) {
         this.frame = frame;
         this.ajastin = ajastin;
         setLayout(null);
@@ -32,9 +32,6 @@ public class OtaKuitti extends JPanel implements ActionListener{
         otaKuitti.setFont(fontti);
         otaKuitti.setBounds(320, 100, 500, 80);
         otaKuitti.setForeground(Color.white);
-
-
-       
 
         add(otaKuitti);
 
@@ -55,6 +52,10 @@ public class OtaKuitti extends JPanel implements ActionListener{
     public void actionPerformed(ActionEvent e) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'actionPerformed'");
+    }
+
+    public void NayttoAjastin() {
+        nayttoAjastin.restart();
     }
 
 }

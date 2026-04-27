@@ -12,6 +12,7 @@ public class ATMFrame extends JFrame {
     private KortinLukija lukija;
     private KiitsJnePaneeli ajastin;
     private OtaMassitPaneeli ajastin2;
+    private OtaKuitti ajastin3;
     private TapahtumatPaneeli tapahtumat;
     final static String NOSTO = "NOSTO";
     final static String ETU = "ETU";
@@ -34,7 +35,8 @@ public class ATMFrame extends JFrame {
         layoutti = new CardLayout();
         paneeli = new JPanel(layoutti);
         ajastin2 = new OtaMassitPaneeli(this, ajastin);
-        tapahtumat = new TapahtumatPaneeli(this);
+        ajastin3 = new OtaKuitti(this, ajastin);
+        tapahtumat = new TapahtumatPaneeli(this, ajastin3, ajastin);
 
         paneeli.add(new EtuSivuPaneeli(this, tapahtumat), ETU);
         paneeli.add(new NostoPaneeli(this, ajastin2), NOSTO);
