@@ -101,6 +101,12 @@ public class SaldoPaneeli extends JPanel implements ActionListener {
         }
     }
 
+      public int keskitys(int leveys){
+        int x = frame.getX();
+        int frameLeveys = frame.getWidth();
+        return x + (frameLeveys - leveys) / 2; 
+    }
+
     public void tukiDialogipaalla(boolean päällä) {
         tukiOnkoPäällä = päällä;
         if (päällä == true) {

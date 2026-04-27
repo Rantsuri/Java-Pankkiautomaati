@@ -55,4 +55,9 @@ public class KiitsJnePaneeli extends JPanel implements ActionListener {
         throw new UnsupportedOperationException("Unimplemented method 'actionPerformed'");
     }
 
+      public int keskitys(int leveys){
+        int x = frame.getX();
+        int frameLeveys = frame.getWidth();
+        return x + (frameLeveys - leveys) / 2; 
+    }
 }

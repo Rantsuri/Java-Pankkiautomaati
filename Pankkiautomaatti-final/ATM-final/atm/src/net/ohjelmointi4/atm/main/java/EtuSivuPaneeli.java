@@ -131,12 +131,18 @@ public class EtuSivuPaneeli extends  JPanel implements ActionListener {
             
             tukiIkkuna.setVisible(true);
             tukiIkkuna.setSize(600, 600);
-            tukiIkkuna.setLocation(675, 90);
+            tukiIkkuna.setLocation(keskitys(600), 90);
             tukiIkkuna.add(tämäPaneeli);
         } else if(päällä == false){
             tukiIkkuna.setVisible(false);
             tukiIkkuna.dispose();
         }
+    }
+
+      public int keskitys(int leveys){
+        int x = frame.getX();
+        int frameLeveys = frame.getWidth();
+        return x + (frameLeveys - leveys) / 2; 
     }
  
 }

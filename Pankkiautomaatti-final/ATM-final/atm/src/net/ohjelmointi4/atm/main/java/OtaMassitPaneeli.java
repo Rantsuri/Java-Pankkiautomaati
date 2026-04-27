@@ -40,7 +40,7 @@ public class OtaMassitPaneeli extends JPanel implements ActionListener{
         
 
         add(otaRahat);
-        add(lopeta);
+       
         add(rahaMaara);
         
         setBackground(Color.blue);

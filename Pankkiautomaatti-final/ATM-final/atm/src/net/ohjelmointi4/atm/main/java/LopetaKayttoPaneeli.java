@@ -63,7 +63,10 @@ public class LopetaKayttoPaneeli extends JPanel implements ActionListener{
         }else if(e.getSource() == takaisinNappi){
             frame.naytto("ETU");
         }
+
+
     }
+    
 
     
 }

@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.JWindow;
 
 public class NostoPaneeli extends JPanel implements ActionListener {
@@ -20,6 +21,8 @@ public class NostoPaneeli extends JPanel implements ActionListener {
     private boolean tukiOnkoPäällä = false;
     private JWindow tukiIkkuna;
     private OtaMassitPaneeli ajastin;
+    private JWindow summaIkkuna;
+    private boolean summaIkkunaPaalla = false;
 
     public NostoPaneeli(ATMFrame frame, OtaMassitPaneeli ajastin) {
         this.frame = frame;
@@ -89,11 +92,12 @@ public class NostoPaneeli extends JPanel implements ActionListener {
         if (e.getSource() == takaisin) {
             //jos tukidialogi on päällä niin takaisin
             //  painamalla pääsee paneeleja takaisin
-            if (tukiOnkoPäällä == true) {
+            if (tukiOnkoPäällä) {
                 tukiDialogipaalla(false);
+            } else if (summaIkkunaPaalla) {
+                nostoSummaIkkuna(false);
             } else {
                 frame.naytto(ATMFrame.ETU);
-
             }
 
         } else if (e.getSource() == tuki) {
@@ -116,9 +120,10 @@ public class NostoPaneeli extends JPanel implements ActionListener {
             frame.naytto(ATMFrame.OTAMASSIT);
             ajastin.NayttoAjastin();
         } else if (e.getSource() == MuuSumma) {
+            nostoSummaIkkuna(true);
 
         } else if (e.getSource() == lopetaKaytto) {
-            frame.naytto("AUTENT");
+            frame.naytto(ATMFrame.LOPETA);
         }
     }
 
@@ -161,12 +166,45 @@ public class NostoPaneeli extends JPanel implements ActionListener {
 
             tukiIkkuna.setVisible(true);
             tukiIkkuna.setSize(600, 600);
-            tukiIkkuna.setLocation(675, 90);
+            tukiIkkuna.setLocation(keskitys(600), 90);
             tukiIkkuna.add(tämäPaneeli);
         } else if (päällä == false) {
             tukiIkkuna.setVisible(false);
             tukiIkkuna.dispose();
         }
+    }
+
+    public void nostoSummaIkkuna(boolean päällä) {
+        summaIkkunaPaalla = päällä;
+        if (päällä == true) {
+            summaIkkuna = new JWindow();
+            JPanel nostoIkkunaPaneeli = new JPanel();
+            nostoIkkunaPaneeli.setBackground(Color.white);
+            nostoIkkunaPaneeli.setLayout(null);
+            JLabel label = new JLabel("Syötä haluamasi Summa");
+
+            label.setBounds(150, 220, 300, 80);
+            label.setFont(fontti);
+            nostoIkkunaPaneeli.add(label);
+
+            JTextField summaField = new JTextField();
+            summaField.setBounds(150, 280, 300, 80);
+            nostoIkkunaPaneeli.add(summaField);
+
+            summaIkkuna.setVisible(true);
+            summaIkkuna.setSize(600, 600);
+            summaIkkuna.setLocation(keskitys(600), 90);
+            summaIkkuna.add(nostoIkkunaPaneeli);
+        } else if (päällä == false) {
+            summaIkkuna.setVisible(false);
+            summaIkkuna.dispose();
+        }
+    }
+
+    public int keskitys(int leveys){
+        int x = frame.getX();
+        int frameLeveys = frame.getWidth();
+        return x + (frameLeveys - leveys) / 2; 
     }
 
 //hei
