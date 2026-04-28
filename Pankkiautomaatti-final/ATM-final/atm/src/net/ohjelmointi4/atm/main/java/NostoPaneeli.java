@@ -1,7 +1,9 @@
 package net.ohjelmointi4.atm.main.java;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -10,6 +12,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -29,6 +32,9 @@ public class NostoPaneeli extends JPanel implements ActionListener {
     private OtaMassitPaneeli ajastin;
     private JWindow summaIkkuna;
     private boolean summaIkkunaPaalla = false;
+    private JDialog nappainIkkuna;
+    private JTextField summaField;
+    private JButton button1, button2, button3, button4, button5, button6, button7, button8, button9, button0, button11, button12;
 
     public NostoPaneeli(ATMFrame frame, OtaMassitPaneeli ajastin, KortinLukija lukija) {
         this.frame = frame;
@@ -61,7 +67,7 @@ public class NostoPaneeli extends JPanel implements ActionListener {
         satku.setFont(fontti);
         satku.addActionListener(this);
 
-        MuuSumma = new JButton("Muu summa");
+        MuuSumma = new JButton("Muu Summa");
         MuuSumma.setBounds(500, 425, 200, 80);
         MuuSumma.setFont(fontti);
         MuuSumma.addActionListener(this);
@@ -128,9 +134,35 @@ public class NostoPaneeli extends JPanel implements ActionListener {
             ajastin.NayttoAjastin();
         } else if (e.getSource() == MuuSumma) {
             nostoSummaIkkuna(true);
-
+            nappainKentta(true);
         } else if (e.getSource() == lopetaKaytto) {
             frame.naytto(ATMFrame.LOPETA);
+        } else if (e.getSource() == button11) {
+            String nostettavaSumma = summaField.getText();
+            Double summa = Double.parseDouble(nostettavaSumma);
+            if (!nostettavaSumma.isEmpty() && nostoRajanSisalla(summa)) {
+                try {
+                    double numeroSumma = Double.parseDouble(nostettavaSumma);
+                    nostoSummaIkkuna(false);
+                    nappainKentta(false);
+                    nostoTapahtuma(numeroSumma);
+                    frame.naytto(ATMFrame.OTAMASSIT);
+                    ajastin.NayttoAjastin();
+                } catch (Exception virhe) {
+                    virhe.printStackTrace();
+                    summaField.setText(null);
+                }
+            } else {
+                summaField.setText(null);
+                JOptionPane.showMessageDialog(this, "Virheellinen summa!", "Virhe", JOptionPane.ERROR_MESSAGE);
+            }
+        } else if (e.getSource() == button12) {
+            String numero = summaField.getText();
+            if (!numero.isEmpty()) {
+                summaField.setText(numero.substring(0, numero.length() - 1));
+            }
+        } else if (summaIkkunaPaalla) {
+            summaField.setText(summaField.getText() + e.getActionCommand());
         }
     }
 
@@ -142,9 +174,7 @@ public class NostoPaneeli extends JPanel implements ActionListener {
             double nostoMaara = lukija.nostoMaara();
             double uusiSaldo = saldo - summa;
             nostoMaara *= 0.4;
-            double uusiNostoMaara = Math.round(nostoMaara /10.0 ) * 10;
-            
-            
+            double uusiNostoMaara = Math.round(nostoMaara / 10.0) * 10;
 
             if (uusiSaldo < 0) {
                 JOptionPane.showMessageDialog(this, "Tilillä ei riittävästi katetta", "Virhe", JOptionPane.ERROR_MESSAGE);
@@ -158,6 +188,14 @@ public class NostoPaneeli extends JPanel implements ActionListener {
             e.printStackTrace();
         }
 
+    }
+
+    public boolean nostoRajanSisalla(double summa) {
+        if (summa <= 100 && summa > 0 && summa % 10 == 0) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public void tukiDialogipaalla(boolean päällä) {
@@ -196,7 +234,7 @@ public class NostoPaneeli extends JPanel implements ActionListener {
             label.setFont(fontti);
             nostoIkkunaPaneeli.add(label);
 
-            JTextField summaField = new JTextField();
+            summaField = new JTextField();
             summaField.setBounds(150, 280, 300, 80);
             nostoIkkunaPaneeli.add(summaField);
 
@@ -223,12 +261,85 @@ public class NostoPaneeli extends JPanel implements ActionListener {
         Files.write(path, tilinTiedot);
     }
 
-    public void muutaNostoMaaraa(String korttin, String uusiNostoMaara) throws IOException{
+    public void muutaNostoMaaraa(String korttin, String uusiNostoMaara) throws IOException {
         Path path = Paths.get(korttin);
-        List <String> tilinTiedot = Files.readAllLines(path);
+        List<String> tilinTiedot = Files.readAllLines(path);
         tilinTiedot.set(2, uusiNostoMaara);
         Files.write(path, tilinTiedot);
 
+    }
+
+    public void nappainKentta(boolean paalla) {
+
+        if (paalla == true) {
+            nappainIkkuna = new JDialog();
+            JPanel nappainkentta = new JPanel(new GridLayout(4, 3, 6, 6));
+            nappainkentta.setBounds(260, 150, 300, 200);
+            nappainkentta.setBackground(Color.blue);
+            nappainkentta.setMaximumSize(new Dimension(260, 200));
+            nappainkentta.setAlignmentX(CENTER_ALIGNMENT);
+
+            button1 = new JButton("1");
+            button1.setFont(fontti);
+            button1.addActionListener(this);
+
+            button2 = new JButton("2");
+            button2.setFont(fontti);
+            button2.addActionListener(this);
+            button3 = new JButton("3");
+            button3.setFont(fontti);
+            button3.addActionListener(this);
+            button4 = new JButton("4");
+            button4.setFont(fontti);
+            button4.addActionListener(this);
+            button5 = new JButton("5");
+            button5.setFont(fontti);
+            button5.addActionListener(this);
+            button6 = new JButton("6");
+            button6.setFont(fontti);
+            button6.addActionListener(this);
+            button7 = new JButton("7");
+            button7.setFont(fontti);
+            button7.addActionListener(this);
+            button8 = new JButton("8");
+            button8.setFont(fontti);
+            button8.addActionListener(this);
+            button9 = new JButton("9");
+            button9.setFont(fontti);
+            button9.addActionListener(this);
+            button11 = new JButton(">");
+            button11.setBackground(Color.green);
+            button11.setFont(fontti);
+            button11.addActionListener(this);
+            button0 = new JButton("0");
+            button0.setFont(fontti);
+            button0.addActionListener(this);
+            button12 = new JButton("<");
+            button12.setBackground(Color.red);
+            button12.setFont(fontti);
+            button12.addActionListener(this);
+
+            nappainkentta.add(button1);
+            nappainkentta.add(button2);
+            nappainkentta.add(button3);
+            nappainkentta.add(button4);
+            nappainkentta.add(button5);
+            nappainkentta.add(button6);
+            nappainkentta.add(button7);
+            nappainkentta.add(button8);
+            nappainkentta.add(button9);
+
+            nappainkentta.add(button12);
+            nappainkentta.add(button0);
+            nappainkentta.add(button11);
+            nappainIkkuna.add(nappainkentta);
+            nappainIkkuna.setVisible(true);
+            nappainIkkuna.setSize(310, 310);
+            nappainIkkuna.setLocation(ALLBITS, ABORT);
+            nappainIkkuna.setAlwaysOnTop(true);
+        } else if (paalla == false) {
+            nappainIkkuna.setVisible(false);
+        }
     }
 //hei
 }
