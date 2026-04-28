@@ -61,3 +61,4 @@ public class KiitsJnePaneeli extends JPanel implements ActionListener {
         return x + (frameLeveys - leveys) / 2; 
     }
 }
+

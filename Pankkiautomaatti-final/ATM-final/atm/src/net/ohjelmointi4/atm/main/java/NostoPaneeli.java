@@ -4,8 +4,14 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JWindow;
@@ -14,7 +20,7 @@ public class NostoPaneeli extends JPanel implements ActionListener {
 //nosto operaatioon kaikki logiikka ja paneelit ja muut
 
     private Font fontti = new Font("Arial", Font.BOLD, 24);
-
+    private KortinLukija lukija;
     private ATMFrame frame;
     private JButton MuuSumma, kaksyt, nelkyt, viiskyt, satku, takaisin,
             tuki, lopetaKaytto;
@@ -24,9 +30,10 @@ public class NostoPaneeli extends JPanel implements ActionListener {
     private JWindow summaIkkuna;
     private boolean summaIkkunaPaalla = false;
 
-    public NostoPaneeli(ATMFrame frame, OtaMassitPaneeli ajastin) {
+    public NostoPaneeli(ATMFrame frame, OtaMassitPaneeli ajastin, KortinLukija lukija) {
         this.frame = frame;
         this.ajastin = ajastin;
+        this.lukija = lukija;
         setLayout(null);
 
         JLabel label = new JLabel("NOSTO");
@@ -129,25 +136,27 @@ public class NostoPaneeli extends JPanel implements ActionListener {
 
     public void nostoTapahtuma(double summa) {
 
-        JPanel paneeli = new JPanel();
-        paneeli.setLayout(null);
-        paneeli.setBackground(Color.blue);
+        try {
+            String kortti = lukija.getKortti();
+            double saldo = lukija.Saldo();
+            double nostoMaara = lukija.nostoMaara();
+            double uusiSaldo = saldo - summa;
+            nostoMaara *= 0.4;
+            double uusiNostoMaara = Math.round(nostoMaara /10.0 ) * 10;
+            
+            
 
-        JLabel nostoTeksti = new JLabel("Nostetaan " + summa + "euroa");
-        JLabel odotaHetki = new JLabel("Rahat tulossa, odota hetki");
+            if (uusiSaldo < 0) {
+                JOptionPane.showMessageDialog(this, "Tilillä ei riittävästi katetta", "Virhe", JOptionPane.ERROR_MESSAGE);
 
-        nostoTeksti.setFont(fontti);
-        odotaHetki.setFont(fontti);
-        odotaHetki.setForeground(Color.white);
-        nostoTeksti.setForeground(Color.white);
+                return;
+            }
+            muutaNostoMaaraa(kortti, String.valueOf(uusiNostoMaara));
+            muutaTilinSaldoa(kortti, String.valueOf(uusiSaldo));
 
-        nostoTeksti.setBounds(50, 50, 200, 80);
-        odotaHetki.setBounds(50, 100, 200, 80);
-        paneeli.add(nostoTeksti);
-        paneeli.add(odotaHetki);
-
-        paneeli.setVisible(true);
-        paneeli.setSize(800, 1000);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -201,11 +210,25 @@ public class NostoPaneeli extends JPanel implements ActionListener {
         }
     }
 
-    public int keskitys(int leveys){
+    public int keskitys(int leveys) {
         int x = frame.getX();
         int frameLeveys = frame.getWidth();
-        return x + (frameLeveys - leveys) / 2; 
+        return x + (frameLeveys - leveys) / 2;
     }
 
+    public void muutaTilinSaldoa(String kortti, String uusiSaldo) throws IOException {
+        Path path = Paths.get(kortti);
+        List<String> tilinTiedot = Files.readAllLines(path);
+        tilinTiedot.set(1, uusiSaldo);
+        Files.write(path, tilinTiedot);
+    }
+
+    public void muutaNostoMaaraa(String korttin, String uusiNostoMaara) throws IOException{
+        Path path = Paths.get(korttin);
+        List <String> tilinTiedot = Files.readAllLines(path);
+        tilinTiedot.set(2, uusiNostoMaara);
+        Files.write(path, tilinTiedot);
+
+    }
 //hei
 }

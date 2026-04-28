@@ -4,6 +4,11 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -72,13 +77,35 @@ public class SaldoPaneeli extends JPanel implements ActionListener {
         add(nostoMaara);
         add(nostoMaaraTeksti);
         add(saldoTeksti);
+        add(saldo);
+
         add(lopeta);
         add(takaisin);
         add(PaneeliTeksti);
-        add(saldo);
         setBackground(Color.blue);
-      
 
+    }
+
+    public void saldoJaNostoMaara() {
+        try {
+            String kortti = lukija.getKortti();
+            String saldoMaara = SaldoPaivitys(kortti);
+            saldo.setText(saldoMaara);
+            String nostoMaara1 = NostoMaaraPaivitys(kortti);
+            nostoMaara.setText(nostoMaara1);
+            
+           
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void setVisible(boolean visible) {
+        super.setVisible(visible);
+        if (visible) {
+            saldoJaNostoMaara();
+        }
     }
 
     @Override
@@ -101,10 +128,10 @@ public class SaldoPaneeli extends JPanel implements ActionListener {
         }
     }
 
-      public int keskitys(int leveys){
+    public int keskitys(int leveys) {
         int x = frame.getX();
         int frameLeveys = frame.getWidth();
-        return x + (frameLeveys - leveys) / 2; 
+        return x + (frameLeveys - leveys) / 2;
     }
 
     public void tukiDialogipaalla(boolean päällä) {
@@ -130,26 +157,22 @@ public class SaldoPaneeli extends JPanel implements ActionListener {
         }
     }
 
-    
+    public String SaldoPaivitys(String kortti) throws IOException {
+        Path path = Paths.get(kortti);
+        List<String> tilintiedot = Files.readAllLines(path);
+        String saldo = tilintiedot.get(1);
+        return saldo;
 
-    public void SaldoPaivitys(){
-         try {
-            Double nostomaara = lukija.Saldo();
-            nostomaara *= 0.4;
-            int pyöristetty = (int) Math.floor(nostomaara / 10) * 10;
-            nostoMaara.setText(String.valueOf(pyöristetty));
-
-        } catch (Exception e) {
-            nostoMaara.setText("Virhe ladattaessa...");
-        }
-
-         try {
-            String StringSaldo = Double.toString(lukija.Saldo());
-            saldo.setText(StringSaldo);
-
-        } catch (Exception e) {
-            saldo.setText("Virhe ladattaessa...");
-
-        }
     }
+
+     public String NostoMaaraPaivitys(String kortti) throws IOException {
+        Path path = Paths.get(kortti);
+        List<String> tilintiedot = Files.readAllLines(path);
+        String nostoMaara = tilintiedot.get(2);
+        return nostoMaara;
+
+    }
+
+
+
 }

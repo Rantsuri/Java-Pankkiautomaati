@@ -39,7 +39,7 @@ public class ATMFrame extends JFrame {
         tapahtumat = new TapahtumatPaneeli(this, ajastin3, ajastin);
 
         paneeli.add(new EtuSivuPaneeli(this, tapahtumat), ETU);
-        paneeli.add(new NostoPaneeli(this, ajastin2), NOSTO);
+        paneeli.add(new NostoPaneeli(this, ajastin2, lukija), NOSTO);
         paneeli.add(new KirjauduPaneeli(this, lukija), KIRJAUDU);
         paneeli.add(new LopetaKayttoPaneeli(this, ajastin), LOPETA);
         paneeli.add(ajastin2, OTAMASSIT);
