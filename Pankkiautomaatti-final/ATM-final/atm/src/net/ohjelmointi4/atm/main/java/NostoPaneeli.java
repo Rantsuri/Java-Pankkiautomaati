@@ -116,22 +116,29 @@ public class NostoPaneeli extends JPanel implements ActionListener {
         } else if (e.getSource() == tuki) {
             tukiDialogipaalla(true);
         } else if (e.getSource() == kaksyt) {
-            nostoTapahtuma(20);
-            frame.naytto(ATMFrame.OTAMASSIT);
-            ajastin.NayttoAjastin();
+            if (nostoTapahtuma(20)) {
+                frame.naytto(ATMFrame.OTAMASSIT);
+                ajastin.NayttoAjastin();
+            }
         } else if (e.getSource() == nelkyt) {
-            frame.naytto(ATMFrame.OTAMASSIT);
-            nostoTapahtuma(40);
-            ajastin.NayttoAjastin();
+            if (nostoTapahtuma(40)) {
+                frame.naytto(ATMFrame.OTAMASSIT);
+                ajastin.NayttoAjastin();
+
+            }
 
         } else if (e.getSource() == viiskyt) {
-            nostoTapahtuma(50);
-            frame.naytto(ATMFrame.OTAMASSIT);
-            ajastin.NayttoAjastin();
+            if (nostoTapahtuma(50)) {
+                frame.naytto(ATMFrame.OTAMASSIT);
+                ajastin.NayttoAjastin();
+            }
+
         } else if (e.getSource() == satku) {
-            nostoTapahtuma(100);
-            frame.naytto(ATMFrame.OTAMASSIT);
-            ajastin.NayttoAjastin();
+            if (nostoTapahtuma(100)) {
+                frame.naytto(ATMFrame.OTAMASSIT);
+                ajastin.NayttoAjastin();
+            }
+
         } else if (e.getSource() == MuuSumma) {
             nostoSummaIkkuna(true);
             nappainKentta(true);
@@ -166,26 +173,36 @@ public class NostoPaneeli extends JPanel implements ActionListener {
         }
     }
 
-    public void nostoTapahtuma(double summa) {
+    public boolean nostoTapahtuma(double summa) {
 
         try {
             String kortti = lukija.getKortti();
             double saldo = lukija.Saldo();
-            double nostoMaara = lukija.nostoMaara();
+            double alkuperainenNostoMaara = lukija.nostoMaara();
             double uusiSaldo = saldo - summa;
-            nostoMaara *= 0.4;
-            double uusiNostoMaara = Math.round(nostoMaara / 10.0) * 10;
 
             if (uusiSaldo < 0) {
                 JOptionPane.showMessageDialog(this, "Tilillä ei riittävästi katetta", "Virhe", JOptionPane.ERROR_MESSAGE);
 
-                return;
+                return false;
             }
-            muutaNostoMaaraa(kortti, String.valueOf(uusiNostoMaara));
+            if (summa > alkuperainenNostoMaara) {
+                JOptionPane.showMessageDialog(this, "Syötetty summa ylittää tilin nostorajan", "Virhe", JOptionPane.ERROR_MESSAGE);
+
+                return false;
+            }
+            int[] jaettavatSetelit = setelienJako(summa);
+            JOptionPane.showMessageDialog(this,"50€ " + jaettavatSetelit[0] + " Kpl, " + 
+                 "20€ " + jaettavatSetelit[1] + " Kpl, "
+                  + "10€ " + jaettavatSetelit[2] + "Kpl",
+                 "Nostetut setelit:", JOptionPane.INFORMATION_MESSAGE);
+
             muutaTilinSaldoa(kortti, String.valueOf(uusiSaldo));
+            return true;
 
         } catch (Exception e) {
             e.printStackTrace();
+            return false;
         }
 
     }
@@ -203,18 +220,28 @@ public class NostoPaneeli extends JPanel implements ActionListener {
         if (päällä == true) {
             tukiIkkuna = new JWindow();
             JPanel tämäPaneeli = new JPanel();
+            tämäPaneeli.setLayout(null);
             tämäPaneeli.setBackground(Color.white);
-            JLabel label1 = new JLabel("TUKI");
-
-            label1.setBounds(300, 300, 200, 80);
+            JLabel label1 = new JLabel("<html><u>TUKI</u></html>");
+            
+            label1.setBounds(280, 50, 200, 80);
             label1.setFont(fontti);
+            JLabel tukiteksti1 = new JLabel("<html>Tällä sivulla voit nostaa käteistä painamalla haluttua summaa tai syöttää mieluinen summa käyttäen numeronäppäimiä. Nostettavat setelit ovat 50€, 20€ ja 10€ seteileitä. Maksimi kerta nostomäärä on 100€.  Voit halutessasi palata takaisin painamalla Takaisin-näppäintä tai lopettaa käytön painamalla Lopeta Käyttö-näppäintä</html>");
+            tukiteksti1.setFont(fontti);
+            tukiteksti1.setBounds(100, 150, 400, 310);
+            
+
+            JLabel tukiteksti2 = new JLabel("<html>Ongelmatilanteissa soita:<br> +358 010 1234567</html>");
+            tukiteksti2.setFont(fontti);
+            tukiteksti2.setBounds(100, 450, 400, 150);
 
             tämäPaneeli.add(label1);
-
+            tämäPaneeli.add(tukiteksti2);
+            tämäPaneeli.add(tukiteksti1);
+            tukiIkkuna.add(tämäPaneeli);
             tukiIkkuna.setVisible(true);
             tukiIkkuna.setSize(600, 600);
-            tukiIkkuna.setLocation(keskitys(600), 90);
-            tukiIkkuna.add(tämäPaneeli);
+            tukiIkkuna.setLocation(keskitys(600), 70);
         } else if (päällä == false) {
             tukiIkkuna.setVisible(false);
             tukiIkkuna.dispose();
@@ -240,7 +267,7 @@ public class NostoPaneeli extends JPanel implements ActionListener {
 
             summaIkkuna.setVisible(true);
             summaIkkuna.setSize(600, 600);
-            summaIkkuna.setLocation(keskitys(600), 90);
+            summaIkkuna.setLocation(keskitys(600), 70);
             summaIkkuna.add(nostoIkkunaPaneeli);
         } else if (päällä == false) {
             summaIkkuna.setVisible(false);
@@ -267,6 +294,24 @@ public class NostoPaneeli extends JPanel implements ActionListener {
         tilinTiedot.set(2, uusiNostoMaara);
         Files.write(path, tilinTiedot);
 
+    }
+
+    //vaatimus: antaa vain 50, 20 ja 10 euron seteleitä ja antaa ne mahdollisimman suurina suhteessa nostosummaan
+    public int[] setelienJako(double summa){
+        int jako = (int) summa;
+        int viiskyt = 0;
+        int kakskyt = 0;
+        int kymppi = 0;
+
+        viiskyt = jako / 50;
+        jako %= 50;
+        kakskyt = jako / 20;
+        jako %= 20;
+        kymppi = jako / 10;
+        jako %= 10;
+
+        return new int[]{viiskyt, kakskyt, kymppi};
+        
     }
 
     public void nappainKentta(boolean paalla) {

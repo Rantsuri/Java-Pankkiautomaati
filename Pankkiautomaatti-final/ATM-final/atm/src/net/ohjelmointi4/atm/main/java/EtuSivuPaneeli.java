@@ -48,7 +48,7 @@ public class EtuSivuPaneeli extends  JPanel implements ActionListener {
         tapahtumat.addActionListener(this);
         tapahtumat.setFont(fontti);
 
-        tuki = new JButton("TUKI");
+        tuki = new JButton("Tuki");
         tuki.setBounds(500, 550, 200, 80);
         tuki.setFont(fontti);
         
@@ -116,22 +116,29 @@ public class EtuSivuPaneeli extends  JPanel implements ActionListener {
 
    public void tukiDialogipaalla(boolean päällä) { 
         if (päällä == true) {
-            tukiIkkuna = new JWindow();
+              tukiIkkuna = new JWindow();
             JPanel tämäPaneeli = new JPanel();
+            tämäPaneeli.setLayout(null);
             tämäPaneeli.setBackground(Color.white);
-            JLabel label1 = new JLabel("TUKI");
+            JLabel label1 = new JLabel("<html><u>TUKI</u></html>");
             
-            label1.setBounds(300, 300, 200, 80);
+            label1.setBounds(280, 50, 200, 80);
             label1.setFont(fontti);
+            JLabel tukiteksti1 = new JLabel("<html>Tällä sivulla voit navigoida haluamaasi toimintoon. Valitse haluamasi toiminto painamalla toiminnolla nimettyä painiketta navigoidaksesi siihen. Voit halutessasi lopettaa käytön painamalla Lopeta Käyttö-nappäintä</html>");
+            tukiteksti1.setFont(fontti);
+            tukiteksti1.setBounds(100, 150, 400, 300);
             
 
-      
+             JLabel tukiteksti2 = new JLabel("<html>Ongelmatilanteissa soita:<br> +358 010 1234567</html>");
+            tukiteksti2.setFont(fontti);
+            tukiteksti2.setBounds(100, 450, 400, 150);
+
             tämäPaneeli.add(label1);
-                    
-            
+            tämäPaneeli.add(tukiteksti2);
+            tämäPaneeli.add(tukiteksti1);
             tukiIkkuna.setVisible(true);
             tukiIkkuna.setSize(600, 600);
-            tukiIkkuna.setLocation(keskitys(600), 90);
+            tukiIkkuna.setLocation(keskitys(600), 70);
             tukiIkkuna.add(tämäPaneeli);
         } else if(päällä == false){
             tukiIkkuna.setVisible(false);

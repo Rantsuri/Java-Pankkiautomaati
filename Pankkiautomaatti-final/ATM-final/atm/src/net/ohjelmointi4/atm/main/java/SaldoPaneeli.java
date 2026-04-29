@@ -26,6 +26,7 @@ public class SaldoPaneeli extends JPanel implements ActionListener {
     private KortinLukija lukija;
     private JLabel saldo, saldoTeksti;
     private JLabel nostoMaara, nostoMaaraTeksti, PaneeliTeksti;
+    
 
     public SaldoPaneeli(ATMFrame frame, KortinLukija lukija) {
         this.lukija = lukija;
@@ -139,17 +140,28 @@ public class SaldoPaneeli extends JPanel implements ActionListener {
         if (päällä == true) {
             tukiIkkuna = new JWindow();
             JPanel tämäPaneeli = new JPanel();
+            tämäPaneeli.setLayout(null);
             tämäPaneeli.setBackground(Color.white);
-            JLabel label1 = new JLabel("TUKI");
-
-            label1.setBounds(300, 300, 200, 80);
+            JLabel label1 = new JLabel("<html><u>TUKI</u></html>");
+            
+            label1.setBounds(280, 50, 200, 80);
             label1.setFont(fontti);
+            JLabel tukiteksti1 = new JLabel("<html>Tällä sivulla voit tarkastella tilisi saldoa. Voit halutessasi palata takaisin painamalla Takaisin-näppäintä tai lopettaa käytön painamalla Lopeta Käyttö-näppäintä </html>");
+            tukiteksti1.setFont(fontti);
+            tukiteksti1.setBounds(100, 150, 400, 200);
+            
+
+             JLabel tukiteksti2 = new JLabel("<html>Ongelmatilanteissa soita:<br> +358 010 1234567</html>");
+            tukiteksti2.setFont(fontti);
+            tukiteksti2.setBounds(100, 450, 400, 150);
+
 
             tämäPaneeli.add(label1);
-
+            tämäPaneeli.add(tukiteksti2);
+            tämäPaneeli.add(tukiteksti1);
             tukiIkkuna.setVisible(true);
             tukiIkkuna.setSize(600, 600);
-            tukiIkkuna.setLocation(675, 90);
+            tukiIkkuna.setLocation(keskitys(600), 70);
             tukiIkkuna.add(tämäPaneeli);
         } else if (päällä == false) {
             tukiIkkuna.setVisible(false);
@@ -172,6 +184,8 @@ public class SaldoPaneeli extends JPanel implements ActionListener {
         return nostoMaara;
 
     }
+
+    
 
 
 

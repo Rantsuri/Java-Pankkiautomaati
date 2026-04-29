@@ -19,20 +19,22 @@ public class KiitsJnePaneeli extends JPanel implements ActionListener {
 
     public KiitsJnePaneeli(ATMFrame frame) {
         this.frame = frame;
-
+        setLayout(null);
         tervetuloaUudelleen = new JLabel("Tervetuloa uudelleen");
         tervetuloaUudelleen.setFont(fontti);
         tervetuloaUudelleen.setForeground(Color.white);
+        tervetuloaUudelleen.setBounds(280, 400, 300, 90);
 
         Kiitos = new JLabel("Kiitos Käynnistä");
         Kiitos.setFont(fontti);
         Kiitos.setForeground(Color.white);
+        Kiitos.setBounds(300, 300, 300, 90);
 
         add(tervetuloaUudelleen);
         add(Kiitos);
 
         setBackground(Color.blue);
-        nayttoAjastin = new Timer(10000, new ActionListener() {
+        nayttoAjastin = new Timer(7000, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 nayttoAjastin.stop();
