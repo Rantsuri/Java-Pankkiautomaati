@@ -4,8 +4,6 @@ public class Main {
 //Käynnistää sovelluksen
 
 public static void main(String[] args) {
-
-
     ATMFrame frame = new ATMFrame();
 }
 }

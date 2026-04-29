@@ -58,6 +58,7 @@ public class SaldoPaneeli extends JPanel implements ActionListener {
         saldoTeksti.setFont(fontti);
         saldoTeksti.setBounds(125, 300, 200, 80);
         saldoTeksti.setForeground(Color.white);
+        
 
         nostoMaara = new JLabel("");
         nostoMaara.setFont(fontti);
@@ -74,12 +75,12 @@ public class SaldoPaneeli extends JPanel implements ActionListener {
         PaneeliTeksti.setForeground(Color.white);
         PaneeliTeksti.setBounds(300, 100, 200, 80);
 
+        saldoJaNostoMaara();
         add(tuki);
         add(nostoMaara);
         add(nostoMaaraTeksti);
         add(saldoTeksti);
         add(saldo);
-
         add(lopeta);
         add(takaisin);
         add(PaneeliTeksti);
@@ -87,27 +88,20 @@ public class SaldoPaneeli extends JPanel implements ActionListener {
 
     }
 
-    public void saldoJaNostoMaara() {
+    public final void saldoJaNostoMaara() {
         try {
             String kortti = lukija.getKortti();
             String saldoMaara = SaldoPaivitys(kortti);
             saldo.setText(saldoMaara);
             String nostoMaara1 = NostoMaaraPaivitys(kortti);
             nostoMaara.setText(nostoMaara1);
-            
            
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    @Override
-    public void setVisible(boolean visible) {
-        super.setVisible(visible);
-        if (visible) {
-            saldoJaNostoMaara();
-        }
-    }
+   
 
     @Override
     public void actionPerformed(ActionEvent e) {
