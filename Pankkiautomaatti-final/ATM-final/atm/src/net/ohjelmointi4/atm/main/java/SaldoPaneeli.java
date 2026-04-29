@@ -75,7 +75,7 @@ public class SaldoPaneeli extends JPanel implements ActionListener {
         PaneeliTeksti.setForeground(Color.white);
         PaneeliTeksti.setBounds(300, 100, 200, 80);
 
-        saldoJaNostoMaara();
+        
         add(tuki);
         add(nostoMaara);
         add(nostoMaaraTeksti);
