@@ -18,7 +18,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 public class KirjauduPaneeli extends JPanel implements ActionListener {
-
+//kirjautumispaneelin grafiikka, logiikka ja muut
     private ATMFrame frame;
     private JTextField korttiNumeroKentta;
     private JPasswordField pinKentta;

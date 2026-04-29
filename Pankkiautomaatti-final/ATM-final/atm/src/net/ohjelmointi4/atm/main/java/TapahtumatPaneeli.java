@@ -12,7 +12,7 @@ import javax.swing.JRadioButton;
 import javax.swing.JWindow;
 
 public class TapahtumatPaneeli extends JPanel implements ActionListener {
-//Tapahtumat paneeli radioNapilla
+//Tapahtumat paneeli radionapilla varustettuna
 
     private ATMFrame frame;
     private JRadioButton radioKuitille;
@@ -26,9 +26,9 @@ public class TapahtumatPaneeli extends JPanel implements ActionListener {
     private JButton valitseOk;
     private JButton tuki;
     private OtaKuitti ajastin;
-    private KiitsJnePaneeli ajastin2;
+    private KiitosKaynnistaPaneeli ajastin2;
 
-    public TapahtumatPaneeli(ATMFrame frame, OtaKuitti ajastin, KiitsJnePaneeli ajastin2) {
+    public TapahtumatPaneeli(ATMFrame frame, OtaKuitti ajastin, KiitosKaynnistaPaneeli ajastin2) {
         this.frame = frame;
         this.ajastin = ajastin;
         this.ajastin2 = ajastin2;
@@ -104,7 +104,7 @@ public class TapahtumatPaneeli extends JPanel implements ActionListener {
                 tukiDialogipaalla(false);
             } else {
 
-                frame.naytto("ETU");
+                frame.naytto(ATMFrame.ETU);
 
             }
 

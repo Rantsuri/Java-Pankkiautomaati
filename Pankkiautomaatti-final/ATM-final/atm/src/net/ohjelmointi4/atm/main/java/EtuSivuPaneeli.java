@@ -10,7 +10,7 @@ import javax.swing.JPanel;
 import javax.swing.JWindow;
 
 public class EtuSivuPaneeli extends  JPanel implements ActionListener {
- //toimiiks
+ //Automaatin etusivu. Grafiikat, logiikat ja muut
 
  private JPanel panel;
  private JButton nosto, tapahtumat, saldo, lopeta, tuki, takaisin;

@@ -11,15 +11,16 @@ import javax.swing.Timer;
 
 
 public class OtaMassitPaneeli extends JPanel implements ActionListener{
+    //rahan otto kehotuksen grafiikka ja ajastin
     private ATMFrame frame;
     private JLabel otaRahat;
     private JLabel rahaMaara;
     private JButton lopeta;
     private Font fontti = new Font("Arial", Font.BOLD, 24);
     private Timer nayttoAjastin;
-    private KiitsJnePaneeli ajastin;
+    private KiitosKaynnistaPaneeli ajastin;
 
-    public OtaMassitPaneeli(ATMFrame frame, KiitsJnePaneeli ajastin){
+    public OtaMassitPaneeli(ATMFrame frame, KiitosKaynnistaPaneeli ajastin){
         this.frame = frame;
         this.ajastin = ajastin;
         setLayout(null);

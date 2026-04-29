@@ -9,16 +9,16 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class LopetaKayttoPaneeli extends JPanel implements ActionListener{
-//paevaa
+//lopeta käyttö paneelin grafiikat ja muut
 
     private ATMFrame frame;
     private JLabel LopetaKayttoTeksti;
     private JLabel oletkoVarmaTeksti;
     private JButton takaisinNappi, lopetaKayttoNappi;
     private Font fontti = new Font("Arial", Font.BOLD, 24);
-    private KiitsJnePaneeli ajastin;
+    private KiitosKaynnistaPaneeli ajastin;
 
-    public LopetaKayttoPaneeli(ATMFrame frame, KiitsJnePaneeli ajastin) {
+    public LopetaKayttoPaneeli(ATMFrame frame, KiitosKaynnistaPaneeli ajastin) {
         this.frame = frame;
         this.ajastin = ajastin;
         setLayout(null);
@@ -61,7 +61,7 @@ public class LopetaKayttoPaneeli extends JPanel implements ActionListener{
             ajastin.NayttoAjastin();
 
         }else if(e.getSource() == takaisinNappi){
-            frame.naytto("ETU");
+            frame.naytto(ATMFrame.ETU);
         }
 
 

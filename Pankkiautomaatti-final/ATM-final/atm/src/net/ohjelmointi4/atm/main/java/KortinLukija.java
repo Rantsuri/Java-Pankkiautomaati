@@ -5,6 +5,8 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class KortinLukija {
+//ns pankkikortin lukija
+
 
     private File OikeaKortti;
     private String tiliNimi;

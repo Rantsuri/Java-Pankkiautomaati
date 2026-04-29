@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
@@ -13,12 +12,12 @@ public class OtaKuitti extends JPanel implements ActionListener {
 
     private ATMFrame frame;
     private JLabel otaKuitti, Tapahtumat;
-    private KiitsJnePaneeli ajastin;
+    private KiitosKaynnistaPaneeli ajastin;
     private Timer nayttoAjastin;
 
     private Font fontti = new Font("Arial", Font.BOLD, 24);
 
-    public OtaKuitti(ATMFrame frame, KiitsJnePaneeli ajastin) {
+    public OtaKuitti(ATMFrame frame, KiitosKaynnistaPaneeli ajastin) {
         this.frame = frame;
         this.ajastin = ajastin;
         setLayout(null);

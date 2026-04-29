@@ -5,12 +5,12 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 public class ATMFrame extends JFrame {
-    //toimiiko tää
+    //Paneelien valinta, init ja ohjaus
 
     private CardLayout layoutti;
     private JPanel paneeli;
     private KortinLukija lukija;
-    private KiitsJnePaneeli ajastin;
+    private KiitosKaynnistaPaneeli ajastin;
     private OtaMassitPaneeli ajastin2;
     private OtaKuitti ajastin3;
     private TapahtumatPaneeli tapahtumat;
@@ -31,7 +31,7 @@ public class ATMFrame extends JFrame {
         setResizable(false);
         setUndecorated(true);
         lukija = new KortinLukija();
-        ajastin = new KiitsJnePaneeli(this);
+        ajastin = new KiitosKaynnistaPaneeli(this);
         layoutti = new CardLayout();
         paneeli = new JPanel(layoutti);
         ajastin2 = new OtaMassitPaneeli(this, ajastin);
@@ -44,7 +44,7 @@ public class ATMFrame extends JFrame {
         paneeli.add(new LopetaKayttoPaneeli(this, ajastin), LOPETA);
         paneeli.add(ajastin2, OTAMASSIT);
         paneeli.add(tapahtumat, TAPAHTUMAT);
-        paneeli.add(new KiitsJnePaneeli(this), KIITOSHEI);
+        paneeli.add(new KiitosKaynnistaPaneeli(this), KIITOSHEI);
         paneeli.add(new SaldoPaneeli(this, lukija), SALDO);
         paneeli.add(new OtaKuitti(this, ajastin), KUITTI);
 
@@ -58,7 +58,5 @@ public class ATMFrame extends JFrame {
 
     }
 
-    public void lopetaKaytto() {
-        layoutti.show(paneeli, KIRJAUDU);
-    }
+    
 }

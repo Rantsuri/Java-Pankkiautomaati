@@ -20,7 +20,7 @@ import javax.swing.JTextField;
 import javax.swing.JWindow;
 
 public class NostoPaneeli extends JPanel implements ActionListener {
-//nosto operaatioon kaikki logiikka ja paneelit ja muut
+//nostotoiminnon logiikka, grafiikka ja muut
 
     private Font fontti = new Font("Arial", Font.BOLD, 24);
     private KortinLukija lukija;
@@ -192,10 +192,10 @@ public class NostoPaneeli extends JPanel implements ActionListener {
                 return false;
             }
             int[] jaettavatSetelit = setelienJako(summa);
-            JOptionPane.showMessageDialog(this,"50€ " + jaettavatSetelit[0] + " Kpl, " + 
-                 "20€ " + jaettavatSetelit[1] + " Kpl, "
-                  + "10€ " + jaettavatSetelit[2] + "Kpl",
-                 "Nostetut setelit:", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "50€ " + jaettavatSetelit[0] + " Kpl, "
+                    + "20€ " + jaettavatSetelit[1] + " Kpl, "
+                    + "10€ " + jaettavatSetelit[2] + "Kpl",
+                    "Nostetut setelit:", JOptionPane.INFORMATION_MESSAGE);
 
             muutaTilinSaldoa(kortti, String.valueOf(uusiSaldo));
             return true;
@@ -223,13 +223,12 @@ public class NostoPaneeli extends JPanel implements ActionListener {
             tämäPaneeli.setLayout(null);
             tämäPaneeli.setBackground(Color.white);
             JLabel label1 = new JLabel("<html><u>TUKI</u></html>");
-            
+
             label1.setBounds(280, 50, 200, 80);
             label1.setFont(fontti);
             JLabel tukiteksti1 = new JLabel("<html>Tällä sivulla voit nostaa käteistä painamalla haluttua summaa tai syöttää mieluinen summa käyttäen numeronäppäimiä. Nostettavat setelit ovat 50€, 20€ ja 10€ seteileitä. Maksimi kerta nostomäärä on 100€.  Voit halutessasi palata takaisin painamalla Takaisin-näppäintä tai lopettaa käytön painamalla Lopeta Käyttö-näppäintä</html>");
             tukiteksti1.setFont(fontti);
             tukiteksti1.setBounds(100, 150, 400, 310);
-            
 
             JLabel tukiteksti2 = new JLabel("<html>Ongelmatilanteissa soita:<br> +358 010 1234567</html>");
             tukiteksti2.setFont(fontti);
@@ -297,7 +296,7 @@ public class NostoPaneeli extends JPanel implements ActionListener {
     }
 
     //vaatimus: antaa vain 50, 20 ja 10 euron seteleitä ja antaa ne mahdollisimman suurina suhteessa nostosummaan
-    public int[] setelienJako(double summa){
+    public int[] setelienJako(double summa) {
         int jako = (int) summa;
         int viiskyt = 0;
         int kakskyt = 0;
@@ -311,7 +310,7 @@ public class NostoPaneeli extends JPanel implements ActionListener {
         jako %= 10;
 
         return new int[]{viiskyt, kakskyt, kymppi};
-        
+
     }
 
     public void nappainKentta(boolean paalla) {
