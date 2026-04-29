@@ -262,6 +262,8 @@ public class NostoPaneeli extends JPanel implements ActionListener {
 
             summaField = new JTextField();
             summaField.setBounds(150, 280, 300, 80);
+            summaField.setFont(fontti);
+            summaField.setHorizontalAlignment(JTextField.CENTER);
             nostoIkkunaPaneeli.add(summaField);
 
             summaIkkuna.setVisible(true);
@@ -271,6 +273,7 @@ public class NostoPaneeli extends JPanel implements ActionListener {
         } else if (päällä == false) {
             summaIkkuna.setVisible(false);
             summaIkkuna.dispose();
+            nappainIkkuna.setVisible(false);
         }
     }
 
@@ -383,6 +386,7 @@ public class NostoPaneeli extends JPanel implements ActionListener {
             nappainIkkuna.setAlwaysOnTop(true);
         } else if (paalla == false) {
             nappainIkkuna.setVisible(false);
+            
         }
     }
 //hei
