@@ -118,6 +118,8 @@ public class TapahtumatPaneeli extends JPanel implements ActionListener {
         }else if(e.getSource() == valitseOk && radioNaytolle.isSelected()){
             frame.naytto(ATMFrame.KIITOSHEI);
             ajastin2.NayttoAjastin();
+        }else if(e.getSource() == lopetaKaytto){
+            frame.naytto(ATMFrame.LOPETA);
         }
 
     }
