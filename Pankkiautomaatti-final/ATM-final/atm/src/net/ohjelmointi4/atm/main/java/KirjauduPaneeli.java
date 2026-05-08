@@ -66,7 +66,7 @@ public class KirjauduPaneeli extends JPanel implements ActionListener {
         if (lukija.korttiOnOlemassa(pin) && !onkoEstoListalla(tiliNimi)) {
             return true;
         } else if (onkoEstoListalla(tiliNimi)) {
-            JOptionPane.showMessageDialog(this, "Kortti lukittu, ota yhteyttä kortin tarjoajaan", "Virhe", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Kortti on lukittu, ota yhteyttä kortin tarjoajaan", "Virhe", JOptionPane.ERROR_MESSAGE);
             return false;
         } else {
             JOptionPane.showMessageDialog(this, "Väärä PIN!", "Virhe", JOptionPane.ERROR_MESSAGE);

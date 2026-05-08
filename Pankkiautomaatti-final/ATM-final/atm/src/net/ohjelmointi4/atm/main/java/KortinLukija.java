@@ -7,7 +7,6 @@ import java.util.Scanner;
 public class KortinLukija {
 //ns pankkikortin lukija
 
-
     private File OikeaKortti;
     private String tiliNimi;
     private String OikeaPinKoodi;
@@ -18,8 +17,15 @@ public class KortinLukija {
     public boolean korttiOnOlemassa(String pin) {
 
         File tiedosto = new File(".");
-        File[] kortit = tiedosto.listFiles((d, name) -> name.endsWith(".txt"));
-        File kortti1 = kortit[0];
+        File[] kaikki = tiedosto.listFiles();
+        File kortti1 = null;
+
+        for (File tied : kaikki) {
+            if (tied.getName().endsWith(".txt")) {
+                kortti1 = tied;
+                break;
+            }
+        }
         String pinkoodi = kortti1.getName().replace(".txt", "");
         try {
             Scanner lukija = new Scanner(kortti1);
@@ -28,7 +34,7 @@ public class KortinLukija {
             e.printStackTrace();
             return false;
         }
-        if(pinkoodi.equals(pin)){
+        if (pinkoodi.equals(pin)) {
             OikeaKortti = kortti1;
             OikeaPinKoodi = pin;
             return true;
@@ -71,7 +77,7 @@ public class KortinLukija {
         }
     }
 
-    public String tiliNimi()  {
+    public String tiliNimi() {
         return tiliNimi;
     }
 }
