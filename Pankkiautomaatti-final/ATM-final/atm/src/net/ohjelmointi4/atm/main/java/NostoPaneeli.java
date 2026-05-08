@@ -298,7 +298,6 @@ public class NostoPaneeli extends JPanel implements ActionListener {
 
     }
 
-    //vaatimus: antaa vain 50, 20 ja 10 euron seteleitä ja antaa ne mahdollisimman suurina suhteessa nostosummaan
     public int[] setelienJako(double summa) {
         int jako = (int) summa;
         int viiskyt = 0;
